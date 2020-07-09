@@ -1,6 +1,14 @@
 # spotify-clone-using-python-mp3-player-
 this is an music player with album art
 
+to make it work:
+
+1,install tkinter(by 'pip install tkinter')
+2,install pillow(by 'pip install pillow')
+3,install mutagen(by 'pip install mutagen')
+4,install pygame(by 'pip install pygame')
+
+
 modules used
 
 1,tkinter (for GUI)
