@@ -10,7 +10,7 @@ modules used
 
 what special in this:
 
-1,you can add songs
-2,you can able to add playlist
+1,you can add songs to the playlsit
+2,you can able to add new playlists
 3,you can remove songs from the playlist
 4,it will display albumart of the music if it is exist
