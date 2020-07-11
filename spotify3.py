@@ -320,7 +320,7 @@ def addsongs():
         pudualbum(so)
         with open(currentdir+".txt","a") as f:
             print(so,file=f)
-    f.close()
+    
 
 
 def deletesong():
