@@ -185,21 +185,27 @@ def play():
 curen=0
 curenspos=0
 iduprev=0
+idu=0
 def musicforward():
     global curen
     global curenspos
-    global iduprev
+    global idu
     global pos
     global alistofsongs
+    global idupudusu
     try:
         idu=int(pygame.mixer.music.get_pos()/1000)
         curen+=int(pygame.mixer.music.get_pos()/1000)+5
         so=MP3(alistofsongs[pos])
         totallen=int(so.info.length/60)*60+int(so.info.length%60)
         curen=curen-idu
-        if(curen<=0 or curen>=totallen):
+        if(idu+curen<=0 or idu+curen>=totallen):
             curen=0
-        pygame.mixer.music.set_pos(curen)
+    
+        pygame.mixer.music.set_pos(idu+curen)
+        
+            
+        
     except:
         pass
    
@@ -208,7 +214,7 @@ def musicforward():
 def musicbackward():
     global curen
     global curenspos
-    global iduprev
+    global idu
     global pos
     global alistofsongs
     try:
@@ -217,9 +223,12 @@ def musicbackward():
         so=MP3(alistofsongs[pos])
         totallen=int(so.info.length/60)*60+int(so.info.length%60)
         curen=curen-idu
-        if(curen<=0 or curen>=totallen):
+        if(idu+curen<=0 or idu+curen>=totallen):
             curen=0
-        pygame.mixer.music.set_pos(curen)
+    
+        pygame.mixer.music.set_pos(idu+curen)
+        
+        
     except:
         pass
     
@@ -244,6 +253,10 @@ def skiptrackf():
         randname=remove_extention(alistofsongs[pos+1])
         realname=alistofsongs[pos+1]
         pos=pos+1
+        songbox.selection_clear(0,END)
+        songbox.activate(pos)
+        songbox.selection_set(pos)
+      
         try:
             lastahirrundasong=albumart[pos]
             startingla=Label(whatsong,image=albumart[pos],padx=5,pady=5)
@@ -255,6 +268,7 @@ def skiptrackf():
         songname.grid_forget()
         songname=Label(whatsong,text=randname,bg="green",fg="white",font=("arial",14))
         songname.grid(row=2,column=0)
+    
         pygame.mixer.music.load(realname)
         pygame.mixer.music.play(-1)
     else:
@@ -278,9 +292,13 @@ def skiptrackb():
     
 
     if(len(alistofsongs)!=0):
+        
         randname=remove_extention(alistofsongs[pos-1])
         realname=alistofsongs[pos-1]
         pos=pos-1
+        songbox.selection_clear(0,END)
+        songbox.activate(pos)
+        songbox.selection_set(pos)
         try:
             lastahirrundasong=albumart[pos]
             startingla=Label(whatsong,image=albumart[pos],padx=5,pady=5)
@@ -313,6 +331,7 @@ def pause(ispaused):
 def addsongs():
     global alistofsongs
     global currentdir
+    
     songs=filedialog.askopenfilenames(initialdir="/Desktop/python codes",title="open songs",filetypes=(("mp3 files","*.mp3"),("jpg files","*.jpg"),))
     for so in songs:
         songbox.insert(END,so)
@@ -320,7 +339,7 @@ def addsongs():
         pudualbum(so)
         with open(currentdir+".txt","a") as f:
             print(so,file=f)
-    
+
 
 
 def deletesong():
